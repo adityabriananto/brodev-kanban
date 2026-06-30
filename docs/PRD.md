@@ -8,10 +8,11 @@ Sebuah *web application* berdesain premium bergaya Kanban (To Do, In Progress, D
 
 ## 2. User Flow & Features
 
-### 2.1. Authentication (Pilih Profil)
-- Saat membuka aplikasi, pengguna disajikan halaman untuk memilih siapa yang sedang mengakses (Bapak, Ibu, atau ART).
-- **Tidak ada form login kompleks.**
-- Menyimpan sesi di `localStorage`.
+### 2.1. Authentication (Email & Password Login)
+- Pengguna harus masuk menggunakan kombinasi **Email** dan **Password** yang telah didaftarkan oleh sistem.
+- **Form Login:** Menggunakan desain *Glassmorphism* yang bersih dengan input teks besar (ramah ART).
+- **Change Password:** Pengguna dapat mengubah *password* mereka kapan saja melalui tombol di sudut layar dalam aplikasi (*Board*).
+- Sesi disimpan secara aman di `localStorage` agar ART tidak perlu selalu mengetik email setiap hari (tetap *login* kecuali melakukan *logout*).
 
 ### 2.2. The Kanban Board
 - **Kolom:** To Do (Tugas Baru), In Progress (Sedang Dikerjakan), Done (Selesai).

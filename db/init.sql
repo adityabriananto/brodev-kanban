@@ -6,7 +6,9 @@ CREATE TYPE task_status AS ENUM ('todo', 'in_progress', 'done');
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(255) NOT NULL,
-    role user_role NOT NULL
+    role user_role NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    password_hash VARCHAR(255)
 );
 
 CREATE TABLE tasks (
@@ -16,14 +18,16 @@ CREATE TABLE tasks (
     status task_status DEFAULT 'todo',
     assigned_hours NUMERIC(5,2),
     hour_change_reason TEXT,
+    assigned_to UUID REFERENCES users(id) ON DELETE SET NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Seed Data for Users
-INSERT INTO users (name, role) VALUES 
-('Bapak', 'owner'),
-('Ibu', 'owner');
+INSERT INTO users (name, role, email, password_hash) VALUES 
+('Bapak', 'owner', 'bapak@rumah.com', '$2b$10$.i5el7CjO7MinWtVm.YjauRz6qepBeDEForvB6ZFaFjsF6aP2QFQC'),
+('Ibu', 'owner', 'ibu@rumah.com', '$2b$10$.i5el7CjO7MinWtVm.YjauRz6qepBeDEForvB6ZFaFjsF6aP2QFQC'),
+('ART', 'art', 'art@rumah.com', '$2b$10$.i5el7CjO7MinWtVm.YjauRz6qepBeDEForvB6ZFaFjsF6aP2QFQC');
 
 -- Seed Data for Tasks
 INSERT INTO tasks (title, description, status, assigned_hours) VALUES 

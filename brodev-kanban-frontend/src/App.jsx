@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ProfileSelection from './components/ProfileSelection'
+import AuthForm from './components/AuthForm'
 import KanbanBoard from './components/KanbanBoard'
 
 function App() {
@@ -21,10 +21,13 @@ function App() {
   return (
     <>
       {!currentUser ? (
-        <ProfileSelection onLogin={handleLogin} />
+        <AuthForm onLogin={handleLogin} />
       ) : (
         <KanbanBoard currentUser={currentUser} onLogout={handleLogout} />
       )}
+      <footer style={{ textAlign: 'center', opacity: 0.6, marginTop: '20px', padding: '10px', fontSize: '0.9rem' }}>
+        © 2026 Brodev. All rights reserved.
+      </footer>
     </>
   )
 }
