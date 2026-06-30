@@ -1,26 +1,26 @@
 # 🏠 Brodev Household Kanban Board
 
-Aplikasi manajemen tugas rumah tangga berbasis Kanban yang didesain untuk memudahkan komunikasi antara **Pemilik Rumah** (Owner) dan **Asisten Rumah Tangga** (ART).
+A premium household task management application built on a Kanban-style board, designed to streamline communication between **Homeowners** and their **Household Assistants (ART)**.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Key Features
 
-- **🔐 Autentikasi Email & Password** — Login aman dengan `bcrypt` hashing. Setiap pengguna punya akun masing-masing.
-- **👥 Manajemen Pengguna** — Owner dapat menambah, menghapus, dan mereset password ART langsung dari UI tanpa menyentuh kode.
-- **📋 Kanban Board** — Tiga kolom: *To Do*, *In Progress*, dan *Done*.
-- **📌 Penugasan Tugas** — Owner dapat menugaskan setiap kartu tugas ke ART spesifik.
-- **⚡ Real-Time Sync** — Menggunakan Socket.io. Perubahan oleh satu pengguna langsung muncul di layar pengguna lain tanpa refresh.
-- **🔔 Toast Notification** — Notifikasi muncul otomatis ketika ada perubahan jam pada tugas.
+- **🔐 Email & Password Authentication** — Secure login with `bcrypt` password hashing. Every user has their own account.
+- **👥 User Management** — Owners can add, remove, and reset passwords for household assistants directly from the UI — no code changes needed.
+- **📋 Kanban Board** — Three columns: *To Do*, *In Progress*, and *Done*.
+- **📌 Task Assignment** — Owners can assign each task card to a specific household assistant.
+- **⚡ Real-Time Sync** — Powered by Socket.io. Changes made by one user instantly appear on all other connected screens — no refresh needed.
+- **🔔 Toast Notifications** — Automatic in-app notifications when task hours are modified.
 - **🛡️ Role-Based Access Control (RBAC)**:
-  - **Owner**: Akses penuh (tambah, edit, hapus tugas, kelola pengguna).
-  - **ART**: Hanya bisa menggeser status tugas & mengubah jam (wajib isi alasan).
+  - **Owner**: Full access — create, edit, delete tasks, and manage users.
+  - **ART (Household Assistant)**: Can only move task status and modify hours (a reason is mandatory for hour changes).
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Teknologi |
+| Layer | Technology |
 |---|---|
 | Frontend | React (Vite) + Vanilla CSS |
 | Backend | Node.js + Express + Socket.io |
@@ -30,84 +30,84 @@ Aplikasi manajemen tugas rumah tangga berbasis Kanban yang didesain untuk memuda
 
 ---
 
-## 🚀 Cara Menjalankan Lokal
+## 🚀 Getting Started (Local Development)
 
-### Prasyarat
+### Prerequisites
 - [Node.js](https://nodejs.org/) v18+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - Git
 
-### 1. Clone Repository
+### 1. Clone the Repository
 ```bash
 git clone git@github.com:adityabriananto/brodev-kanban.git
 cd brodev-kanban
 ```
 
-### 2. Jalankan Database
+### 2. Start the Database
 ```bash
 docker-compose up -d
 ```
 
-### 3. Jalankan Backend
+### 3. Start the Backend
 ```bash
 cd brodev-kanban-backend
 npm install
 npm run dev
 ```
-Backend berjalan di: `http://localhost:3000`
+Backend runs at: `http://localhost:3000`
 
-### 4. Jalankan Frontend
+### 4. Start the Frontend
 ```bash
 cd brodev-kanban-frontend
 npm install
 npm run dev
 ```
-Frontend berjalan di: `http://localhost:5173`
+Frontend runs at: `http://localhost:5173`
 
 ---
 
-## 👤 Akun Default
+## 👤 Default Accounts
 
-| Nama | Email | Password | Role |
+| Name | Email | Password | Role |
 |---|---|---|---|
 | Bapak | `bapak@rumah.com` | `password123` | Owner |
 | Ibu | `ibu@rumah.com` | `password123` | Owner |
-| ART | `art@rumah.com` | `password123` | ART |
+| ART | `art@rumah.com` | `password123` | Household Assistant |
 
-> ⚠️ **Penting:** Segera ubah password default setelah pertama kali login melalui tombol 🔒 di pojok kanan atas aplikasi.
+> ⚠️ **Important:** Change your default password immediately after first login using the 🔒 button in the top-right corner of the app.
 
 ---
 
-## 📁 Struktur Proyek
+## 📁 Project Structure
 
 ```
 brodev-kanban/
-├── brodev-kanban-backend/     # Node.js + Express API
-│   ├── server.js              # Main server & API routes
-│   ├── db.js                  # PostgreSQL connection pool
+├── brodev-kanban-backend/       # Node.js + Express API
+│   ├── server.js                # Main server & all API routes
+│   ├── db.js                    # PostgreSQL connection pool
 │   └── package.json
-├── brodev-kanban-frontend/    # React (Vite) app
+├── brodev-kanban-frontend/      # React (Vite) app
 │   └── src/
 │       ├── components/
-│       │   ├── AuthForm.jsx           # Halaman Login
-│       │   ├── KanbanBoard.jsx        # Board utama
-│       │   ├── TaskCard.jsx           # Kartu tugas
-│       │   └── UserManagementModal.jsx # Panel kelola pengguna
+│       │   ├── AuthForm.jsx             # Login page
+│       │   ├── KanbanBoard.jsx          # Main board view
+│       │   ├── TaskCard.jsx             # Individual task card
+│       │   └── UserManagementModal.jsx  # User management panel
 │       └── App.jsx
 ├── db/
-│   └── init.sql               # Schema & seed data PostgreSQL
-├── docker-compose.yml         # PostgreSQL container config
-└── docs/                      # Dokumentasi TPM & PRD
+│   └── init.sql                 # PostgreSQL schema & seed data
+├── docker-compose.yml           # PostgreSQL container config
+└── docs/                        # TPM tickets & product documentation
 ```
 
 ---
 
-## 📄 Dokumentasi
+## 📄 Documentation
 
-Dokumentasi teknis dan product tersedia di folder [`docs/`](./docs/):
+Technical and product documentation is available in the [`docs/`](./docs/) folder:
 - `BRD.md` — Business Requirements Document
 - `PRD.md` — Product Requirements Document
-- `tpm-task-to-dev-*.md` — Tiket instruksi dari TPM ke Developer
+- `tpm-task-to-dev-*.md` — Developer task tickets from the TPM
 
 ---
 
