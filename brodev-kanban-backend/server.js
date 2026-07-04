@@ -4,6 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const pool = require('./db');
 const wa = require('./wa');
+const scheduler = require('./scheduler');
 
 const http = require('http');
 const { Server } = require('socket.io');
@@ -21,6 +22,8 @@ app.use(express.json());
 
 // Initialize WhatsApp client
 wa.initWaClient();
+// Initialize Task Reminder Scheduler
+scheduler.initScheduler();
 
 // ==========================================
 // WHATSAPP API
@@ -200,11 +203,11 @@ app.get('/api/tasks', async (req, res) => {
 
 // Create a new task
 app.post('/api/tasks', async (req, res) => {
-  const { title, description, assigned_hours, assigned_to } = req.body;
+  const { title, description, assigned_hours, assigned_to, target_time } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO tasks (title, description, assigned_hours, assigned_to) VALUES ($1, $2, $3, $4) RETURNING *',
-      [title, description, assigned_hours || 0, assigned_to || null]
+      'INSERT INTO tasks (title, description, assigned_hours, assigned_to, target_time) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [title, description, assigned_hours || 0, assigned_to || null, target_time || null]
     );
     io.emit('taskUpdated');
     
@@ -212,7 +215,11 @@ app.post('/api/tasks', async (req, res) => {
     if (assigned_to) {
       const userRes = await pool.query('SELECT name, phone_number FROM users WHERE id = $1', [assigned_to]);
       if (userRes.rows.length > 0 && userRes.rows[0].phone_number) {
-        const msg = `🏠 *Tugas Baru untuk ${userRes.rows[0].name}*\n\n📌 *Tugas:* ${title}\n📄 *Detail:* ${description || '-'}\n🕒 *Alokasi:* ${assigned_hours || 1} jam\n\nSilakan buka aplikasi Kanban Brodev untuk mulai mengerjakan!`;
+        let msg = `🏠 *Tugas Baru untuk ${userRes.rows[0].name}*\n\n📌 *Tugas:* ${title}\n📄 *Detail:* ${description || '-'}\n🕒 *Alokasi:* ${assigned_hours || 1} jam`;
+        if (target_time) {
+          msg += `\n🎯 *Target Selesai:* ${target_time.slice(0, 5)}`;
+        }
+        msg += `\n\nSilakan buka aplikasi Kanban Brodev untuk mulai mengerjakan!`;
         await wa.sendWaMessage(userRes.rows[0].phone_number, msg);
       }
     }
@@ -227,9 +234,9 @@ app.post('/api/tasks', async (req, res) => {
 // Update a task
 app.put('/api/tasks/:id', async (req, res) => {
   const { id } = req.params;
-  const { title, description, status, assigned_hours, hour_change_reason, changedBy, assigned_to } = req.body;
+  const { title, description, status, assigned_hours, hour_change_reason, changedBy, assigned_to, target_time } = req.body;
   try {
-    const prevTaskResult = await pool.query('SELECT assigned_hours, title, status, assigned_to FROM tasks WHERE id = $1', [id]);
+    const prevTaskResult = await pool.query('SELECT assigned_hours, title, status, assigned_to, target_time FROM tasks WHERE id = $1', [id]);
     if (prevTaskResult.rows.length === 0) {
       return res.status(404).json({ error: 'Task not found' });
     }
@@ -243,10 +250,25 @@ app.put('/api/tasks/:id', async (req, res) => {
 
     if (title !== undefined) { fields.push(`title = $${idx++}`); values.push(title); }
     if (description !== undefined) { fields.push(`description = $${idx++}`); values.push(description); }
-    if (status !== undefined) { fields.push(`status = $${idx++}`); values.push(status); }
+    if (status !== undefined) { 
+      fields.push(`status = $${idx++}`); 
+      values.push(status);
+      // Reset reminder_sent when status goes back to todo or in_progress from done
+      if (status !== 'done') {
+        fields.push(`reminder_sent = $${idx++}`);
+        values.push(false);
+      }
+    }
     if (assigned_hours !== undefined) { fields.push(`assigned_hours = $${idx++}`); values.push(assigned_hours); }
     if (hour_change_reason !== undefined) { fields.push(`hour_change_reason = $${idx++}`); values.push(hour_change_reason); }
     if (assigned_to !== undefined) { fields.push(`assigned_to = $${idx++}`); values.push(assigned_to || null); }
+    if (target_time !== undefined) { 
+      fields.push(`target_time = $${idx++}`); 
+      values.push(target_time || null);
+      // Reset reminder_sent if target_time changes
+      fields.push(`reminder_sent = $${idx++}`);
+      values.push(false);
+    }
     
     fields.push(`updated_at = CURRENT_TIMESTAMP`);
 

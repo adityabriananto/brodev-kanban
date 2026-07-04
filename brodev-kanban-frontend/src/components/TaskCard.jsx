@@ -80,8 +80,8 @@ export default function TaskCard({ task, currentUser, artUsers = [], onUpdateSta
         )}
       </div>
 
-      <div className="task-meta">
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <div className="task-meta" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.85 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
           🕒
           {!isEditingHours ? (
             <span
@@ -99,13 +99,20 @@ export default function TaskCard({ task, currentUser, artUsers = [], onUpdateSta
                 min="0"
                 value={editHoursValue}
                 onChange={e => setEditHoursValue(e.target.value)}
-                style={{ width: '60px', padding: '0.2rem' }}
+                style={{ width: '50px', padding: '0.1rem' }}
               />
-              <button onClick={handleSaveHoursClick} style={{ padding: '0.2rem 0.5rem', cursor: 'pointer' }}>✓</button>
-              <button onClick={() => setIsEditingHours(false)} style={{ padding: '0.2rem 0.5rem', cursor: 'pointer' }}>✗</button>
+              <button onClick={handleSaveHoursClick} style={{ padding: '0.1rem 0.3rem', cursor: 'pointer' }}>✓</button>
+              <button onClick={() => setIsEditingHours(false)} style={{ padding: '0.1rem 0.3rem', cursor: 'pointer' }}>✗</button>
             </div>
           )}
         </span>
+
+        {task.target_time && (
+          <span style={{ color: '#e53e3e', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.2rem' }} title="Target Waktu Selesai">
+            🎯 {task.target_time.slice(0, 5)}
+          </span>
+        )}
+
         <span>{new Date(task.created_at).toLocaleDateString('id-ID')}</span>
       </div>
 

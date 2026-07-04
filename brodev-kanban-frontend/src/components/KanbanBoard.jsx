@@ -15,6 +15,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskHours, setNewTaskHours] = useState("1");
   const [newTaskAssignedTo, setNewTaskAssignedTo] = useState("");
+  const [newTaskTargetTime, setNewTaskTargetTime] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
@@ -94,7 +95,8 @@ export default function KanbanBoard({ currentUser, onLogout }) {
         title: newTaskTitle,
         description: newTaskDesc,
         assigned_hours: parseFloat(newTaskHours) || 1,
-        assigned_to: newTaskAssignedTo || null
+        assigned_to: newTaskAssignedTo || null,
+        target_time: newTaskTargetTime || null
       })
     })
     .then(() => {
@@ -102,6 +104,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
       setNewTaskDesc("");
       setNewTaskHours("1");
       setNewTaskAssignedTo("");
+      setNewTaskTargetTime("");
     });
   };
 
@@ -219,16 +222,27 @@ export default function KanbanBoard({ currentUser, onLogout }) {
                 value={newTaskDesc}
                 onChange={e => setNewTaskDesc(e.target.value)}
               />
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <label>Jam:</label>
-                <input
-                  type="number"
-                  step="0.5"
-                  min="0"
-                  value={newTaskHours}
-                  onChange={e => setNewTaskHours(e.target.value)}
-                  style={{ width: "80px" }}
-                />
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <label>Jam:</label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    min="0"
+                    value={newTaskHours}
+                    onChange={e => setNewTaskHours(e.target.value)}
+                    style={{ width: "80px" }}
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <label>Target:</label>
+                  <input
+                    type="time"
+                    value={newTaskTargetTime}
+                    onChange={e => setNewTaskTargetTime(e.target.value)}
+                    style={{ padding: "0.3rem", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)", color: "inherit" }}
+                  />
+                </div>
               </div>
               <div>
                 <label style={{ display: "block", marginBottom: "0.3rem", fontSize: "0.85rem", opacity: 0.8 }}>Tugaskan ke:</label>
