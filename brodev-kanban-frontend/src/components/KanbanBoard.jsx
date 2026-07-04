@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 import UserManagementModal from "./UserManagementModal";
+import WhatsAppSettingsModal from "./WhatsAppSettingsModal";
 import { io } from "socket.io-client";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,6 +17,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
   const [newTaskAssignedTo, setNewTaskAssignedTo] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [myTasksOnly, setMyTasksOnly] = useState(false);
@@ -165,15 +167,24 @@ export default function KanbanBoard({ currentUser, onLogout }) {
             </button>
           )}
 
-          {/* Kelola Pengguna - hanya untuk Owner */}
+          {/* Akses Admin - hanya untuk Owner */}
           {currentUser.role === "owner" && (
-            <button
-              style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.3rem", padding: "0 0.3rem" }}
-              onClick={() => setShowUserModal(true)}
-              title="Kelola Pengguna"
-            >
-              👥
-            </button>
+            <>
+              <button
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.3rem", padding: "0 0.3rem" }}
+                onClick={() => setShowWhatsAppModal(true)}
+                title="Koneksi WhatsApp"
+              >
+                💬
+              </button>
+              <button
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.3rem", padding: "0 0.3rem" }}
+                onClick={() => setShowUserModal(true)}
+                title="Kelola Pengguna"
+              >
+                👥
+              </button>
+            </>
           )}
 
           <button
@@ -327,6 +338,11 @@ export default function KanbanBoard({ currentUser, onLogout }) {
           onClose={() => setShowUserModal(false)}
           onUsersChanged={fetchUsers}
         />
+      )}
+
+      {/* Modal Koneksi WhatsApp */}
+      {showWhatsAppModal && (
+        <WhatsAppSettingsModal onClose={() => setShowWhatsAppModal(false)} />
       )}
     </div>
   );

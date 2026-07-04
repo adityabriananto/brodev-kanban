@@ -24,3 +24,7 @@ Thumbs.db
 
 # Temporary DB fix scripts
 db/fix.sql
+
+# WhatsApp Auth Session
+wa_auth_info/
+

@@ -8,6 +8,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
   const [newEmail, setNewEmail] = useState('');
   const [newRole, setNewRole] = useState('art');
   const [newPassword, setNewPassword] = useState('');
+  const [newPhone, setNewPhone] = useState('');
   const [resetUserId, setResetUserId] = useState(null);
   const [resetPassword, setResetPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,19 +18,25 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
     e.preventDefault();
     setError(''); setSuccess('');
     if (!newName || !newEmail || !newPassword) {
-      setError('Semua field wajib diisi');
+      setError('Nama, Email, dan Password wajib diisi');
       return;
     }
     try {
       const res = await fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newName, email: newEmail, role: newRole, password: newPassword })
+        body: JSON.stringify({
+          name: newName,
+          email: newEmail,
+          role: newRole,
+          password: newPassword,
+          phone_number: newPhone || null
+        })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setSuccess(`Pengguna "${newName}" berhasil ditambahkan!`);
-      setNewName(''); setNewEmail(''); setNewRole('art'); setNewPassword('');
+      setNewName(''); setNewEmail(''); setNewRole('art'); setNewPassword(''); setNewPhone('');
       setShowAddForm(false);
       onUsersChanged();
     } catch (err) {
@@ -118,6 +125,11 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>{user.name}</div>
                 <div style={{ fontSize: '0.8rem', color: '#718096' }}>{user.email}</div>
+                {user.phone_number && (
+                  <div style={{ fontSize: '0.78rem', color: '#4a5568', marginTop: '0.1rem' }}>
+                    📞 {user.phone_number}
+                  </div>
+                )}
               </div>
               <span style={badgeStyle(user.role)}>{user.role}</span>
 
@@ -143,7 +155,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                       >✕</button>
                     </div>
                   ) : (
-                    <>
+                    <div style={{ display: 'flex', gap: '0.3rem' }}>
                       <button
                         onClick={() => setResetUserId(user.id)}
                         title="Reset Password"
@@ -154,7 +166,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                         title="Hapus Pengguna"
                         style={{ padding: '0.4rem 0.6rem', background: '#fff5f5', color: '#c53030', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
                       >🗑️</button>
-                    </>
+                    </div>
                   )}
                 </>
               )}
@@ -184,6 +196,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <input type="text" placeholder="Nama Lengkap *" value={newName} onChange={e => setNewName(e.target.value)} style={inputStyle} />
               <input type="email" placeholder="Email *" value={newEmail} onChange={e => setNewEmail(e.target.value)} style={inputStyle} />
+              <input type="text" placeholder="Nomor WhatsApp (Contoh: 08123456789)" value={newPhone} onChange={e => setNewPhone(e.target.value)} style={inputStyle} />
               <select value={newRole} onChange={e => setNewRole(e.target.value)} style={inputStyle}>
                 <option value="art">ART (Asisten Rumah Tangga)</option>
                 <option value="owner">Owner (Pemilik Rumah)</option>
