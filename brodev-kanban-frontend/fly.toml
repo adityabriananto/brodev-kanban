@@ -1,4 +1,4 @@
-app = "brodev-kanban-frontend-aditya"
+app = "brodev-kanban-aditya"
 primary_region = "sin"
 
 [http_service]

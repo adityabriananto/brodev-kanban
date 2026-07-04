@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
@@ -61,7 +61,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
     <div style={overlayStyle} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h3 style={{ margin: 0, fontSize: '1.2rem' }}>ðŸ’¬ Koneksi WhatsApp</h3>
+          <h3 style={{ margin: 0, fontSize: '1.2rem' }}>💬 Koneksi WhatsApp</h3>
           <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
         </div>
 
@@ -97,7 +97,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
                   <img src={qrCode} alt="WhatsApp QR Code" style={{ width: '220px', height: '220px', display: 'block' }} />
                 </div>
                 <div style={{ fontSize: '0.8rem', color: '#a0aec0', marginTop: '0.8rem', animation: 'pulse 2s infinite' }}>
-                  ðŸ”„ QR Code diperbarui otomatis
+                  🔄 QR Code diperbarui otomatis
                 </div>
               </div>
             )}

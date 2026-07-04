@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
@@ -106,7 +106,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
     <div style={overlayStyle} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ margin: 0, fontSize: '1.3rem' }}>ðŸ‘¥ Kelola Pengguna</h2>
+          <h2 style={{ margin: 0, fontSize: '1.3rem' }}>👥 Kelola Pengguna</h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
         </div>
 
@@ -127,7 +127,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                 <div style={{ fontSize: '0.8rem', color: '#718096' }}>{user.email}</div>
                 {user.phone_number && (
                   <div style={{ fontSize: '0.78rem', color: '#4a5568', marginTop: '0.1rem' }}>
-                    ðŸ“ž {user.phone_number}
+                    📞 {user.phone_number}
                   </div>
                 )}
               </div>
@@ -160,12 +160,12 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                         onClick={() => setResetUserId(user.id)}
                         title="Reset Password"
                         style={{ padding: '0.4rem 0.6rem', background: '#ebf4ff', color: '#3182ce', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
-                      >ðŸ”‘ Reset</button>
+                      >🔑 Reset</button>
                       <button
                         onClick={() => handleDeleteUser(user.id, user.name)}
                         title="Hapus Pengguna"
                         style={{ padding: '0.4rem 0.6rem', background: '#fff5f5', color: '#c53030', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
-                      >ðŸ—‘ï¸</button>
+                      >🗑️</button>
                     </div>
                   )}
                 </>

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 import UserManagementModal from "./UserManagementModal";
 import WhatsAppSettingsModal from "./WhatsAppSettingsModal";
@@ -50,7 +50,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
     socket.on("hourChangedNotification", (data) => {
       if (data.changedBy !== currentUser.name) {
         toast(`${data.changedBy} mengubah jam pada tugas [${data.taskTitle}] menjadi ${data.newHours} jam.`, {
-          icon: "ðŸ””",
+          icon: "🔔",
           duration: 5000
         });
         try {
@@ -178,14 +178,14 @@ export default function KanbanBoard({ currentUser, onLogout }) {
                 onClick={() => setShowWhatsAppModal(true)}
                 title="Koneksi WhatsApp"
               >
-                ðŸ’¬
+                💬
               </button>
               <button
                 style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.3rem", padding: "0 0.3rem" }}
                 onClick={() => setShowUserModal(true)}
                 title="Kelola Pengguna"
               >
-                ðŸ‘¥
+                👥
               </button>
             </>
           )}
@@ -195,7 +195,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
             onClick={() => setShowPasswordModal(true)}
             title="Ubah Password"
           >
-            ðŸ”’
+            🔒
           </button>
           <button className="logout-btn" onClick={onLogout}>Logout</button>
         </div>
@@ -319,7 +319,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
           justifyContent: "center", zIndex: 100, backdropFilter: "blur(5px)"
         }}>
           <div style={{ background: "rgba(255, 255, 255, 0.95)", padding: "2rem", borderRadius: "12px", width: "90%", maxWidth: "350px", boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
-            <h3 style={{ marginTop: 0, textAlign: "center" }}>ðŸ”’ Ubah Password</h3>
+            <h3 style={{ marginTop: 0, textAlign: "center" }}>🔒 Ubah Password</h3>
             <form onSubmit={handleChangePassword} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <input
                 type="password"
