@@ -1,6 +1,6 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export default function UserManagementModal({ currentUser, users, onClose, onUsersChanged }) {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -106,8 +106,8 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
     <div style={overlayStyle} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ margin: 0, fontSize: '1.3rem' }}>👥 Kelola Pengguna</h2>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>✕</button>
+          <h2 style={{ margin: 0, fontSize: '1.3rem' }}>ðŸ‘¥ Kelola Pengguna</h2>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
         </div>
 
         {error && <div style={{ background: '#fff5f5', color: '#c53030', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
@@ -127,7 +127,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                 <div style={{ fontSize: '0.8rem', color: '#718096' }}>{user.email}</div>
                 {user.phone_number && (
                   <div style={{ fontSize: '0.78rem', color: '#4a5568', marginTop: '0.1rem' }}>
-                    📞 {user.phone_number}
+                    ðŸ“ž {user.phone_number}
                   </div>
                 )}
               </div>
@@ -152,7 +152,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                       <button
                         onClick={() => { setResetUserId(null); setResetPassword(''); }}
                         style={{ padding: '0.4rem 0.5rem', background: '#e2e8f0', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}
-                      >✕</button>
+                      >âœ•</button>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', gap: '0.3rem' }}>
@@ -160,12 +160,12 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                         onClick={() => setResetUserId(user.id)}
                         title="Reset Password"
                         style={{ padding: '0.4rem 0.6rem', background: '#ebf4ff', color: '#3182ce', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
-                      >🔑 Reset</button>
+                      >ðŸ”‘ Reset</button>
                       <button
                         onClick={() => handleDeleteUser(user.id, user.name)}
                         title="Hapus Pengguna"
                         style={{ padding: '0.4rem 0.6rem', background: '#fff5f5', color: '#c53030', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
-                      >🗑️</button>
+                      >ðŸ—‘ï¸</button>
                     </div>
                   )}
                 </>

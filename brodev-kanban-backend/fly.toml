@@ -1,0 +1,18 @@
+app = "brodev-kanban-backend"
+primary_region = "sin"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[mounts]
+  source = "wa_session_vol"
+  destination = "/wa_auth_info"
+
+[env]
+  PORT = "3000"
+  WA_AUTH_PATH = "/wa_auth_info"

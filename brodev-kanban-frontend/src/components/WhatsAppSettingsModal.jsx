@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export default function WhatsAppSettingsModal({ onClose }) {
   const [waStatus, setWaStatus] = useState('DISCONNECTED');
@@ -61,8 +61,8 @@ export default function WhatsAppSettingsModal({ onClose }) {
     <div style={overlayStyle} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h3 style={{ margin: 0, fontSize: '1.2rem' }}>💬 Koneksi WhatsApp</h3>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>✕</button>
+          <h3 style={{ margin: 0, fontSize: '1.2rem' }}>ðŸ’¬ Koneksi WhatsApp</h3>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
         </div>
 
         {loading ? (
@@ -71,7 +71,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
           <div>
             {waStatus === 'CONNECTED' && (
               <div style={{ padding: '1rem 0' }}>
-                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>✅</div>
+                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>âœ…</div>
                 <h4 style={{ margin: '0 0 0.5rem', color: '#2f855a' }}>WhatsApp Terhubung!</h4>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: '#718096', lineHeight: '1.4' }}>
                   Aplikasi siap mengirimkan notifikasi tugas langsung ke nomor WhatsApp Owner & ART secara real-time.
@@ -88,7 +88,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
             {waStatus === 'QR_READY' && qrCode && (
               <div>
                 <p style={{ margin: '0 0 1rem', fontSize: '0.9rem', color: '#4a5568', lineHeight: '1.4' }}>
-                  Buka WhatsApp di HP Anda → **Perangkat Tertaut (Linked Devices)** → **Tautkan Perangkat**, lalu scan QR Code di bawah ini:
+                  Buka WhatsApp di HP Anda â†’ **Perangkat Tertaut (Linked Devices)** â†’ **Tautkan Perangkat**, lalu scan QR Code di bawah ini:
                 </p>
                 <div style={{
                   background: 'white', padding: '1rem', borderRadius: '12px',
@@ -97,7 +97,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
                   <img src={qrCode} alt="WhatsApp QR Code" style={{ width: '220px', height: '220px', display: 'block' }} />
                 </div>
                 <div style={{ fontSize: '0.8rem', color: '#a0aec0', marginTop: '0.8rem', animation: 'pulse 2s infinite' }}>
-                  🔄 QR Code diperbarui otomatis
+                  ðŸ”„ QR Code diperbarui otomatis
                 </div>
               </div>
             )}

@@ -1,6 +1,6 @@
-import { useState } from "react";
+ï»¿import { useState } from "react";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export default function AuthForm({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -77,7 +77,7 @@ export default function AuthForm({ onLogin }) {
               value={password}
               onChange={e => setPassword(e.target.value)}
               style={{ width: "100%", padding: "0.75rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}
-              placeholder="••••••••"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
             />
           </div>
           <button 

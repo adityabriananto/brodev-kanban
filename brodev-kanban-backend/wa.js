@@ -4,7 +4,7 @@ const QRCode = require('qrcode');
 const fs = require('fs');
 const path = require('path');
 
-const AUTH_PATH = path.join(__dirname, '..', 'wa_auth_info');
+const AUTH_PATH = process.env.WA_AUTH_PATH || path.join(__dirname, '..', 'wa_auth_info');
 
 let sock = null;
 let latestQrBase64 = null;
