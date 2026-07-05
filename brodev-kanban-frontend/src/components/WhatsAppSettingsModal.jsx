@@ -62,7 +62,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <h3 style={{ margin: 0, fontSize: '1.2rem' }}>💬 Koneksi WhatsApp</h3>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>✕</button>
         </div>
 
         {loading ? (
@@ -71,7 +71,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
           <div>
             {waStatus === 'CONNECTED' && (
               <div style={{ padding: '1rem 0' }}>
-                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>âœ…</div>
+                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>✅</div>
                 <h4 style={{ margin: '0 0 0.5rem', color: '#2f855a' }}>WhatsApp Terhubung!</h4>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: '#718096', lineHeight: '1.4' }}>
                   Aplikasi siap mengirimkan notifikasi tugas langsung ke nomor WhatsApp Owner & ART secara real-time.
@@ -88,7 +88,7 @@ export default function WhatsAppSettingsModal({ onClose }) {
             {waStatus === 'QR_READY' && qrCode && (
               <div>
                 <p style={{ margin: '0 0 1rem', fontSize: '0.9rem', color: '#4a5568', lineHeight: '1.4' }}>
-                  Buka WhatsApp di HP Anda â†’ **Perangkat Tertaut (Linked Devices)** â†’ **Tautkan Perangkat**, lalu scan QR Code di bawah ini:
+                  Buka WhatsApp di HP Anda → **Perangkat Tertaut (Linked Devices)** → **Tautkan Perangkat**, lalu scan QR Code di bawah ini:
                 </p>
                 <div style={{
                   background: 'white', padding: '1rem', borderRadius: '12px',

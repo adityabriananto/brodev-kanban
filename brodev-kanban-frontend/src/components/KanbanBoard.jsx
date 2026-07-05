@@ -166,7 +166,7 @@ export default function KanbanBoard({ currentUser, onLogout }) {
               onClick={() => setMyTasksOnly(v => !v)}
               title="Filter hanya tugas saya"
             >
-              {myTasksOnly ? "âœ“ Tugasku" : "Semua Tugas"}
+              {myTasksOnly ? "✓ Tugasku" : "Semua Tugas"}
             </button>
           )}
 

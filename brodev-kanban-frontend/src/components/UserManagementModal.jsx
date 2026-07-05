@@ -107,7 +107,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
       <div style={modalStyle}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <h2 style={{ margin: 0, fontSize: '1.3rem' }}>👥 Kelola Pengguna</h2>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>âœ•</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#999' }}>✕</button>
         </div>
 
         {error && <div style={{ background: '#fff5f5', color: '#c53030', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
@@ -152,7 +152,7 @@ export default function UserManagementModal({ currentUser, users, onClose, onUse
                       <button
                         onClick={() => { setResetUserId(null); setResetPassword(''); }}
                         style={{ padding: '0.4rem 0.5rem', background: '#e2e8f0', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}
-                      >âœ•</button>
+                      >✕</button>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', gap: '0.3rem' }}>
