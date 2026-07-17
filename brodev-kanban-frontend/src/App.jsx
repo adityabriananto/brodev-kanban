@@ -26,7 +26,7 @@ function App() {
         <KanbanBoard currentUser={currentUser} onLogout={handleLogout} />
       )}
       <footer style={{ textAlign: 'center', opacity: 0.6, marginTop: '20px', padding: '10px', fontSize: '0.9rem' }}>
-        © 2026 Brodev. All rights reserved.
+        © 2026 Aditya Briananto & Brodev Gemini AI. All rights reserved.
       </footer>
     </>
   )
